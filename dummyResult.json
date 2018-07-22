@@ -19,6 +19,15 @@
 		"Poster": "https://vignette.wikia.nocookie.net/logopedia/images/0/09/KFC_col_logo.jpg"
 
 	},
+	{
+		"Company":"Inox",
+		"Short_Offer": "Buy 2 Get 1",
+		"Long_Offer":"Buy two ticket and get another free on weekends",
+		"Validity":"Only weekends",
+		"AddID":"",
+		"Poster": "https://images.financialexpress.com/2016/08/Inox-L.jpg"
+
+	},
 
 	{
 		"Company":"Taco Bell",
@@ -27,6 +36,33 @@
 		"Validity":" Only weekends",
 		"AddID":"",
 		"Poster": "https://vignette.wikia.nocookie.net/logopedia/images/3/3f/Taco_bell_logo.jpg"
+
+	},
+	{
+		"Company":"PVR Cinemas",
+		"Short_Offer": "Buy 1 Get 1",
+		"Long_Offer":"Buy one ticket and get another free on weekdays",
+		"Validity":"Only weekdays",
+		"AddID":"",
+		"Poster": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Pvrcinemas_logo.jpg"
+
+	},
+	{
+		"Company":"KF Premium",
+		"Short_Offer": "Buy 1 Get 1",
+		"Long_Offer":"Buy one Beer and get another free on weekdays",
+		"Validity":"Only weekdays",
+		"AddID":"",
+		"Poster": "https://2.imimg.com/data2/MU/IS/MY-4404339/king-fisher-mineral-water-bottle-500x500.jpg"
+
+	},
+	{
+		"Company":"Ammis Biriyani",
+		"Short_Offer": "Rs.50 off",
+		"Long_Offer":"Rs.50 off on any item purchased on weekdays",
+		"Validity":"Only weekdays",
+		"AddID":"",
+		"Poster": "https://b.zmtcdn.com/data/user_profile_pictures/d8f/137f6a4850e792e9096bf6e4c2178d8f.jpg"
 
 	},
 

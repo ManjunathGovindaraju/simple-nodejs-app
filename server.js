@@ -51,6 +51,14 @@ app.get( '/news', function ( req, res) {
   res.status(200);
 })
 
+
+app.get( '/env', function ( req, res) {
+  res.json(process.env.VCAP_SERVICES);
+  res.status(200);
+})
+
+
+
 app.get( '/health', function ( req, res) {
   res.json("Service is up and running!!!");
   res.status(200);
