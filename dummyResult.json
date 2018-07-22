@@ -1,0 +1,42 @@
+{
+	"results" : [
+	{
+		"Company":"Coffee day",
+		"Short_Offer": "Rs 50 Off",
+		"Long_Offer":"Great offer from Coffee day. Get Rs.50 on minimum purchase of Rs.200",
+		"Validity":"One week",
+		"AddID":"",
+		"Poster": "https://media.rakhimela.com/catalog/product/cache/3/image/1100x/040ec09b1e35df139433887a97daa66f/c/c/ccd_new-3d-logo_1.jpg"
+
+	},
+
+	{
+		"Company":"KFC",
+		"Short_Offer": "Rs 100 Off",
+		"Long_Offer":"Buy any chicken bucket to get Rs.100 off",
+		"Validity":"Only on wednesdays",
+		"AddID":"",
+		"Poster": "https://vignette.wikia.nocookie.net/logopedia/images/0/09/KFC_col_logo.jpg"
+
+	},
+
+	{
+		"Company":"Taco Bell",
+		"Short_Offer": "Rs 20 Off",
+		"Long_Offer":"Get unlimited pepsi and Rs.20 off on any meals on weekends",
+		"Validity":" Only weekends",
+		"AddID":"",
+		"Poster": "https://vignette.wikia.nocookie.net/logopedia/images/3/3f/Taco_bell_logo.jpg"
+
+	},
+
+	{
+		"Company":"McDonalds",
+		"Short_Offer": "Rs 50 Off",
+		"Long_Offer":"Take any burger and get Rs.50 off ",
+		"Validity":" Only on wednesdays",
+		"AddID":"",
+		"Poster": "https://vignette.wikia.nocookie.net/logopedia/images/2/2f/Mcdonalds_logo.jpg"
+
+	}]
+}

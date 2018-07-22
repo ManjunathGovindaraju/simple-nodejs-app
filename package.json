@@ -1,0 +1,16 @@
+{
+  "name": "dilip-web",
+  "version": "1.0.0",
+  "description": "Dilip app service",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Manjunath Govindaraju",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.4",
+    "vcap_services": "^0.3.4",
+    "requests":"^0.2.2"
+  }
+}

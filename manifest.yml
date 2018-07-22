@@ -1,0 +1,9 @@
+---
+applications:
+- name: dilip-web
+  memory: 512M
+  instances: 1
+  random-route: true
+  buildpack: nodejs_buildpack
+  routes:
+  - route: dilip-service.cfapps.io
