@@ -1,8 +1,19 @@
-var express = require( 'express')
-var request = require('request')
+var express = require( 'express');
+var request = require('request');
+var bodyParser = require('body-parser');
+var multer = require('multer'); // v1.0.5
+var upload = multer(); // for parsing multipart/form-data
+
+var cf_svc = require( './utilities/vcap-service.js');
+
+var pg = require('pg');
+var fs = require('fs');
+
 
 var app = express()
-fs = require('fs')
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
 
 app.set('json spaces', 4)
 
@@ -43,19 +54,95 @@ app.get( '/', function ( req, res) {
 })
 
 
-app.get( '/news', function ( req, res) {
-  res.json({
-    "Header": "Welcome to Dilip news portal..." ,
-    "News1":  "- Rupee suffers 43 paise knock to end at lifetime low of 69.05",
+
+app.post( '/offers', upload.array(), function (req, res, next) {
+  var lat = parseFloat(req.body["Latitude"]);
+  var lng = parseFloat(req.body["Longitude"]);
+  var company = req.body["Company"];
+  var shortoffer = req.body["Short_Offer"];
+  var longoffer = req.body["Long_Offer"];
+  var validity = req.body["Validity"];
+  var addid = req.body["AddID"];
+  var poster = req.body["Poster"];
+
+  var db_uri = cf_svc.get_elephantsql_uri();
+  var client = new pg.Client(db_uri);
+
+  client.connect(function(err) {
+    if(err) {
+      return console.error('could not connect to postgres', err);
+      res.status(500);
+    }
+    var queryString =
+      'INSERT INTO advertise VALUES(' +
+      lat + ', ' +
+      lng + ', ' +
+      '\'' + company + '\', ' +
+      '\'' + shortoffer + '\', ' +
+      '\'' + longoffer + '\', ' +
+      '\'' + validity + '\', ' +
+      '\'' + addid + '\', ' +
+      '\'' + poster + '\')' ;
+    client.query(queryString, function(err, result) {
+      if(err) {
+        return console.error('error running query', err);
+      }
+
+      client.end();
+    });
+    res.send(res.body);
+    res.status(200);
   });
+
+})
+
+
+
+app.get( '/news', function ( req, res) {
+  let rawdata = fs.readFileSync('news.json');
+  let jsondata = JSON.parse(rawdata);
+  res.json(jsondata);
   res.status(200);
+
 })
 
 
 app.get( '/env', function ( req, res) {
-  res.json(process.env.VCAP_SERVICES);
+  res.send(process.env.VCAP_SERVICES);
   res.status(200);
 })
+
+
+app.get( '/getoffers', function ( req, res) {
+  var lat = req.query.Lat;
+  var lng = req.query.Lng;
+
+
+  var db_uri = cf_svc.get_elephantsql_uri();
+  var client = new pg.Client(db_uri);
+
+  client.connect(function(err) {
+    if(err) {
+      return console.error('could not connect to postgres', err);
+    }
+    var queryString = 'SELECT * FROM advertise WHERE latitute='+lat+' AND longitude='+lng;
+
+    client.query(queryString, function(err, result) {
+      if(err) {
+        return console.error('error running query', err);
+      }
+      var response = result.rows;
+      response["Latitude"] = lat;
+      response["Longitude"] = lng;
+      res.send(response);
+      client.end();
+    });
+  });
+
+
+})
+
+
 
 
 

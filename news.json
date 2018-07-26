@@ -1,0 +1,22 @@
+{
+	"news": [{
+			"title": "news 1",
+			"content": "Vijay Mallya in talks to return to India voluntarily"
+		},
+		{
+			"title": "news 2",
+			"content": "India emerging as global manufacturing hub"
+		}
+	],
+	"advertisements": [{
+			"title": "ad1",
+			"description":"description of advertisement",
+			"uri": "http://asdfadfasdf.com"
+		},
+		{
+			"title": "ad2",
+			"description":"description of advertisement",
+			"uri": "http://asdfadfasdf.com"
+		}
+	]
+}
