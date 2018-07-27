@@ -20,6 +20,64 @@ app.set('json spaces', 4)
 app.get( '/', function ( req, res) {
   var latitude = req.query.Lat;
   var longitude = req.query.Lng;
+  if (latitude && longitude) {
+    var db_uri = cf_svc.get_elephantsql_uri();
+    var client = new pg.Client(db_uri);
+
+    client.connect(function(err) {
+      if(err) {
+        return console.error('could not connect to postgres', err);
+      }
+      var queryString = 'SELECT * FROM offer_db';
+
+      client.query(queryString, function(err, result) {
+        if(err) {
+          return console.error('error running query', err);
+        }
+        var response = result.rows;
+
+        res.send(response);
+        client.end();
+      });
+    });
+
+  }
+
+
+})
+
+app.get( '/getdetails', function ( req, res) {
+  var adv_id = req.query.id;
+
+  if (adv_id) {
+    var db_uri = cf_svc.get_elephantsql_uri();
+    var client = new pg.Client(db_uri);
+
+    client.connect(function(err) {
+      if(err) {
+        return console.error('could not connect to postgres', err);
+      }
+      var queryString = 'SELECT * FROM offer_details_db WHERE adv_id='+adv_id;
+
+      client.query(queryString, function(err, result) {
+        if(err) {
+          return console.error('error running query', err);
+        }
+        var response = result.rows;
+
+        res.send(response);
+        client.end();
+      });
+    });
+
+  }
+
+
+})
+/*
+app.get( '/', function ( req, res) {
+  var latitude = req.query.Lat;
+  var longitude = req.query.Lng;
 
   let rawdata = fs.readFileSync('dummyResult.json');
   let jsondata = JSON.parse(rawdata);
@@ -52,7 +110,7 @@ app.get( '/', function ( req, res) {
     res.status(400);
   }
 })
-
+*/
 
 
 app.post( '/offers', upload.array(), function (req, res, next) {
@@ -112,7 +170,6 @@ app.get( '/env', function ( req, res) {
   res.status(200);
 })
 
-
 app.get( '/getoffers', function ( req, res) {
   var lat = req.query.Lat;
   var lng = req.query.Lng;
@@ -132,8 +189,7 @@ app.get( '/getoffers', function ( req, res) {
         return console.error('error running query', err);
       }
       var response = result.rows;
-      response["Latitude"] = lat;
-      response["Longitude"] = lng;
+
       res.send(response);
       client.end();
     });
@@ -147,7 +203,7 @@ app.get( '/getoffers', function ( req, res) {
 
 
 app.get( '/health', function ( req, res) {
-  res.json("Service is up and running!!!");
+  res.json("Service is up and running!!! ");
   res.status(200);
 })
 
