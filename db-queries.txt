@@ -18,18 +18,23 @@ insert into offer_db (company, shortoffer, poster) values ('McDonalds', 'Rs.50 o
 
 create table offer_details_db (
   adv_id int,
+  latitute decimal(9,6),
+  longitude decimal(9,6),
   Company varchar(255),
   Long_Offer varchar(255),
-  Validity varchar(255)
+  Validity varchar(255),
+  poster varchar(255)
 );
 
-insert into offer_details_db values ('1','Coffee day','Great offer from Coffee day. Get Rs.50 on minimum purchase of Rs.200','One week');
-insert into offer_details_db values ('2','KFC','Buy any chicken bucket to get Rs.100 off','Only on wednesdays');
-insert into offer_details_db values ('3','Inox','Buy two ticket and get another free on weekends','Only weekends');
-insert into offer_details_db values ('4','Taco Bell','Get unlimited pepsi and Rs.20 off on any meals on weekends','Only weekends');
-insert into offer_details_db values ('5','PVR Cinemas','Buy one ticket and get another free on weekdays','Only weekdays');
-insert into offer_details_db values ('6','KF Premium','Buy one Beer and get another free on weekdays','Only weekdays');
-insert into offer_details_db values ('7','Ammis Biriyani','Rs.50 off on any item purchased on weekdays','Only weekdays');
-insert into offer_details_db values ('8','McDonalds','Take any burger and get Rs.50 off','Only on wednesdays');
+drop table offer_details_db;
+
+insert into offer_details_db values ('1',12.902644,77.564303,'Coffee day','Great offer from Coffee day. Get Rs.50 on minimum purchase of Rs.200','One week','https://media.rakhimela.com/catalog/product/cache/3/image/1100x/040ec09b1e35df139433887a97daa66f/c/c/ccd_new-3d-logo_1.jpg');
+insert into offer_details_db values ('2',12.902644,77.564303,'KFC','Buy any chicken bucket to get Rs.100 off','Only on wednesdays','https://vignette.wikia.nocookie.net/logopedia/images/0/09/KFC_col_logo.jpg');
+insert into offer_details_db values ('3',12.902644,77.564303,'Inox','Buy two ticket and get another free on weekends','Only weekends','https://images.financialexpress.com/2016/08/Inox-L.jpg');
+insert into offer_details_db values ('4',12.902644,77.564303,'Taco Bell','Get unlimited pepsi and Rs.20 off on any meals on weekends','Only weekends','https://vignette.wikia.nocookie.net/logopedia/images/3/3f/Taco_bell_logo.jpg');
+insert into offer_details_db values ('5',12.902644,77.564303,'PVR Cinemas','Buy one ticket and get another free on weekdays','Only weekdays','https://upload.wikimedia.org/wikipedia/commons/d/dc/Pvrcinemas_logo.jpg');
+insert into offer_details_db values ('6',12.902644,77.564303,'KF Premium','Buy one Beer and get another free on weekdays','Only weekdays','https://2.imimg.com/data2/MU/IS/MY-4404339/king-fisher-mineral-water-bottle-500x500.jpg');
+insert into offer_details_db values ('7',12.902644,77.564303,'Ammis Biriyani','Rs.50 off on any item purchased on weekdays','Only weekdays','https://b.zmtcdn.com/data/user_profile_pictures/d8f/137f6a4850e792e9096bf6e4c2178d8f.jpg');
+insert into offer_details_db values ('8',12.902644,77.564303,'McDonalds','Take any burger and get Rs.50 off','Only on wednesdays','https://vignette.wikia.nocookie.net/logopedia/images/2/2f/Mcdonalds_logo.jpg');
 
 select * from offer_details_db;

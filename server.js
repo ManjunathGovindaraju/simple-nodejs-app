@@ -20,6 +20,7 @@ app.set('json spaces', 4)
 app.get( '/', function ( req, res) {
   var latitude = req.query.Lat;
   var longitude = req.query.Lng;
+  var results = {};
   if (latitude && longitude) {
     var db_uri = cf_svc.get_elephantsql_uri();
     var client = new pg.Client(db_uri);
@@ -34,9 +35,11 @@ app.get( '/', function ( req, res) {
         if(err) {
           return console.error('error running query', err);
         }
-        var response = result.rows;
 
-        res.send(response);
+        results['results']=result.rows;
+        //var response = result.rows;
+
+        res.send(results);
         client.end();
       });
     });
@@ -63,7 +66,8 @@ app.get( '/getdetails', function ( req, res) {
         if(err) {
           return console.error('error running query', err);
         }
-        var response = result.rows;
+
+        var response = result.rows[0];
 
         res.send(response);
         client.end();
