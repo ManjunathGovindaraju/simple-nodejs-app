@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 
 app.set('json spaces', 4)
-
+/*
 app.get( '/', function ( req, res) {
   var latitude = req.query.Lat;
   var longitude = req.query.Lng;
@@ -39,7 +39,7 @@ app.get( '/', function ( req, res) {
         results['results']=result.rows;
         //var response = result.rows;
 
-        res.send(results);
+        res.json(results);
         client.end();
       });
     });
@@ -48,7 +48,7 @@ app.get( '/', function ( req, res) {
 
 
 })
-
+*/
 app.get( '/getdetails', function ( req, res) {
   var adv_id = req.query.id;
 
@@ -69,7 +69,7 @@ app.get( '/getdetails', function ( req, res) {
 
         var response = result.rows[0];
 
-        res.send(response);
+        res.json(response);
         client.end();
       });
     });
@@ -78,7 +78,7 @@ app.get( '/getdetails', function ( req, res) {
 
 
 })
-/*
+
 app.get( '/', function ( req, res) {
   var latitude = req.query.Lat;
   var longitude = req.query.Lng;
@@ -114,7 +114,7 @@ app.get( '/', function ( req, res) {
     res.status(400);
   }
 })
-*/
+
 
 
 app.post( '/offers', upload.array(), function (req, res, next) {

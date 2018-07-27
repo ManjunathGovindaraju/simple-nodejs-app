@@ -1,78 +1,52 @@
 {
-	"results" : [
-	{
-		"Company":"Coffee day",
-		"Short_Offer": "Rs 50 Off",
-		"Long_Offer":"Great offer from Coffee day. Get Rs.50 on minimum purchase of Rs.200",
-		"Validity":"One week",
-		"AddID":"",
-		"Poster": "https://media.rakhimela.com/catalog/product/cache/3/image/1100x/040ec09b1e35df139433887a97daa66f/c/c/ccd_new-3d-logo_1.jpg"
-
-	},
-
-	{
-		"Company":"KFC",
-		"Short_Offer": "Rs 100 Off",
-		"Long_Offer":"Buy any chicken bucket to get Rs.100 off",
-		"Validity":"Only on wednesdays",
-		"AddID":"",
-		"Poster": "https://vignette.wikia.nocookie.net/logopedia/images/0/09/KFC_col_logo.jpg"
-
-	},
-	{
-		"Company":"Inox",
-		"Short_Offer": "Buy 2 Get 1",
-		"Long_Offer":"Buy two ticket and get another free on weekends",
-		"Validity":"Only weekends",
-		"AddID":"",
-		"Poster": "https://images.financialexpress.com/2016/08/Inox-L.jpg"
-
-	},
-
-	{
-		"Company":"Taco Bell",
-		"Short_Offer": "Rs 20 Off",
-		"Long_Offer":"Get unlimited pepsi and Rs.20 off on any meals on weekends",
-		"Validity":" Only weekends",
-		"AddID":"",
-		"Poster": "https://vignette.wikia.nocookie.net/logopedia/images/3/3f/Taco_bell_logo.jpg"
-
-	},
-	{
-		"Company":"PVR Cinemas",
-		"Short_Offer": "Buy 1 Get 1",
-		"Long_Offer":"Buy one ticket and get another free on weekdays",
-		"Validity":"Only weekdays",
-		"AddID":"",
-		"Poster": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Pvrcinemas_logo.jpg"
-
-	},
-	{
-		"Company":"KF Premium",
-		"Short_Offer": "Buy 1 Get 1",
-		"Long_Offer":"Buy one Beer and get another free on weekdays",
-		"Validity":"Only weekdays",
-		"AddID":"",
-		"Poster": "https://2.imimg.com/data2/MU/IS/MY-4404339/king-fisher-mineral-water-bottle-500x500.jpg"
-
-	},
-	{
-		"Company":"Ammis Biriyani",
-		"Short_Offer": "Rs.50 off",
-		"Long_Offer":"Rs.50 off on any item purchased on weekdays",
-		"Validity":"Only weekdays",
-		"AddID":"",
-		"Poster": "https://b.zmtcdn.com/data/user_profile_pictures/d8f/137f6a4850e792e9096bf6e4c2178d8f.jpg"
-
-	},
-
-	{
-		"Company":"McDonalds",
-		"Short_Offer": "Rs 50 Off",
-		"Long_Offer":"Take any burger and get Rs.50 off ",
-		"Validity":" Only on wednesdays",
-		"AddID":"",
-		"Poster": "https://vignette.wikia.nocookie.net/logopedia/images/2/2f/Mcdonalds_logo.jpg"
-
-	}]
+    "results": [
+        {
+            "adv_id": 1,
+            "company": "Coffee day",
+            "shortoffer": "Rs 50 Off",
+            "poster": "https://media.rakhimela.com/catalog/product/cache/3/image/1100x/040ec09b1e35df139433887a97daa66f/c/c/ccd_new-3d-logo_1.jpg"
+        },
+        {
+            "adv_id": 2,
+            "company": "KFC",
+            "shortoffer": "Rs 100 Off",
+            "poster": "https://vignette.wikia.nocookie.net/logopedia/images/0/09/KFC_col_logo.jpg"
+        },
+        {
+            "adv_id": 3,
+            "company": "Inox",
+            "shortoffer": "Buy 2 Get 1",
+            "poster": "https://images.financialexpress.com/2016/08/Inox-L.jpg"
+        },
+        {
+            "adv_id": 4,
+            "company": "Taco Bell",
+            "shortoffer": "Rs 20 Off",
+            "poster": "https://vignette.wikia.nocookie.net/logopedia/images/3/3f/Taco_bell_logo.jpg"
+        },
+        {
+            "adv_id": 5,
+            "company": "PVR Cinemas",
+            "shortoffer": "Buy 1 Get 1",
+            "poster": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Pvrcinemas_logo.jpg"
+        },
+        {
+            "adv_id": 6,
+            "company": "KF Premium",
+            "shortoffer": "Buy 1 Get 1",
+            "poster": "https://2.imimg.com/data2/MU/IS/MY-4404339/king-fisher-mineral-water-bottle-500x500.jpg"
+        },
+        {
+            "adv_id": 7,
+            "company": "Ammis Biriyani",
+            "shortoffer": "Rs.50 off",
+            "poster": "https://b.zmtcdn.com/data/user_profile_pictures/d8f/137f6a4850e792e9096bf6e4c2178d8f.jpg"
+        },
+        {
+            "adv_id": 8,
+            "company": "McDonalds",
+            "shortoffer": "Rs.50 off",
+            "poster": "https://vignette.wikia.nocookie.net/logopedia/images/2/2f/Mcdonalds_logo.jpg"
+        }
+    ]
 }
