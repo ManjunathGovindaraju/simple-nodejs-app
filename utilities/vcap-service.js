@@ -1,4 +1,7 @@
 // app-bound services environment variables
+var voucher_codes = require('voucher-code-generator');
+var qr = require('qr-image');
+
 module.exports = {
   get_elephantsql_uri: function () {
     if (process.env.VCAP_SERVICES) {
@@ -13,6 +16,18 @@ module.exports = {
         }
       }
     }
+  },
+
+  get_offer_code: function () {
+    var offercode = voucher_codes.generate({prefix: "dilip-promo-",postfix: "-2018"});
+    return offercode[0];
+
+  },
+
+  get_offer_qr_code: function (code) {
+    var qri = "Redeem Code: "+code;
+    var qrcode = qr.image(qri, { type: 'jpeg' });
+    return qrcode;
   }
 
 

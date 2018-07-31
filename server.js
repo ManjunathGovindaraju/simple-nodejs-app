@@ -1,6 +1,8 @@
 var express = require( 'express');
 var request = require('request');
 var bodyParser = require('body-parser');
+var qr = require('qr-image');
+
 var multer = require('multer'); // v1.0.5
 var upload = multer(); // for parsing multipart/form-data
 
@@ -68,7 +70,10 @@ app.get( '/getdetails', function ( req, res) {
         }
 
         var response = result.rows[0];
-
+        var qri = "Redeem Code: "+response["redeem_code"];
+        var qrcode = qr.image(qri, { type: 'png' });
+        //response["qr-image"] = qrcode;
+        qrcode.pipe(res);
         res.json(response);
         client.end();
       });
@@ -76,6 +81,21 @@ app.get( '/getdetails', function ( req, res) {
 
   }
 
+
+})
+
+app.get( '/offercode', function ( req, res) {
+  var redeem_code = cf_svc.get_offer_code();
+  //var qrCode = cf_svc.get_offer_qr_code(redeem_code);
+  //res.send(redeem_code);
+  //res.type('jpeg');
+  //code.pipe(res);
+
+  var qri = "Redeem Code: "+redeem_code;
+  var qrcode = qr.image(qri, { type: 'png' });
+
+  res.type('png');
+  qrcode.pipe(res);
 
 })
 
