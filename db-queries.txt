@@ -1,19 +1,23 @@
 create table offer_db (
   adv_id SERIAL PRIMARY KEY,
+  latitute decimal(9,6),
+  longitude decimal(9,6),
   company varchar(255),
   shortoffer varchar(255),
   poster varchar(255)
 );
 
+drop table offer_db;
 
-insert into offer_db (company, shortoffer, poster) values ('Coffee day', 'Rs 50 Off','https://media.rakhimela.com/catalog/product/cache/3/image/1100x/040ec09b1e35df139433887a97daa66f/c/c/ccd_new-3d-logo_1.jpg');
-insert into offer_db (company, shortoffer, poster) values ('KFC', 'Rs 100 Off','https://vignette.wikia.nocookie.net/logopedia/images/0/09/KFC_col_logo.jpg');
-insert into offer_db (company, shortoffer, poster) values ('Inox', 'Buy 2 Get 1','https://images.financialexpress.com/2016/08/Inox-L.jpg');
-insert into offer_db (company, shortoffer, poster) values ('Taco Bell', 'Rs 20 Off','https://vignette.wikia.nocookie.net/logopedia/images/3/3f/Taco_bell_logo.jpg');
-insert into offer_db (company, shortoffer, poster) values ('PVR Cinemas', 'Buy 1 Get 1','https://upload.wikimedia.org/wikipedia/commons/d/dc/Pvrcinemas_logo.jpg');
-insert into offer_db (company, shortoffer, poster) values ('KF Premium', 'Buy 1 Get 1','https://2.imimg.com/data2/MU/IS/MY-4404339/king-fisher-mineral-water-bottle-500x500.jpg');
-insert into offer_db (company, shortoffer, poster) values ('Ammis Biriyani', 'Rs.50 off','https://b.zmtcdn.com/data/user_profile_pictures/d8f/137f6a4850e792e9096bf6e4c2178d8f.jpg');
-insert into offer_db (company, shortoffer, poster) values ('McDonalds', 'Rs.50 off','https://vignette.wikia.nocookie.net/logopedia/images/2/2f/Mcdonalds_logo.jpg');
+
+insert into offer_db (latitute, longitude, company, shortoffer, poster) values (12.902644,77.564303,'Coffee day', 'Rs 50 Off','https://media.rakhimela.com/catalog/product/cache/3/image/1100x/040ec09b1e35df139433887a97daa66f/c/c/ccd_new-3d-logo_1.jpg');
+insert into offer_db (latitute, longitude, company, shortoffer, poster) values (12.902644,77.564303,'KFC', 'Rs 100 Off','https://vignette.wikia.nocookie.net/logopedia/images/0/09/KFC_col_logo.jpg');
+insert into offer_db (latitute, longitude, company, shortoffer, poster) values (12.902644,77.564303,'Inox', 'Buy 2 Get 1','https://images.financialexpress.com/2016/08/Inox-L.jpg');
+insert into offer_db (latitute, longitude, company, shortoffer, poster) values (12.902644,77.564303,'Taco Bell', 'Rs 20 Off','https://vignette.wikia.nocookie.net/logopedia/images/3/3f/Taco_bell_logo.jpg');
+insert into offer_db (latitute, longitude, company, shortoffer, poster) values (12.902644,77.564303,'PVR Cinemas', 'Buy 1 Get 1','https://upload.wikimedia.org/wikipedia/commons/d/dc/Pvrcinemas_logo.jpg');
+insert into offer_db (latitute, longitude, company, shortoffer, poster) values (12.902644,77.564303,'KF Premium', 'Buy 1 Get 1','https://2.imimg.com/data2/MU/IS/MY-4404339/king-fisher-mineral-water-bottle-500x500.jpg');
+insert into offer_db (latitute, longitude, company, shortoffer, poster) values (12.902644,77.564303,'Ammis Biriyani', 'Rs 50 off','https://b.zmtcdn.com/data/user_profile_pictures/d8f/137f6a4850e792e9096bf6e4c2178d8f.jpg');
+insert into offer_db (latitute, longitude, company, shortoffer, poster) values (12.902644,77.564303,'McDonalds', 'Rs 50 off','https://vignette.wikia.nocookie.net/logopedia/images/2/2f/Mcdonalds_logo.jpg');
 
 
 create table offer_details_db (
@@ -39,3 +43,6 @@ insert into offer_details_db values ('7',12.902644,77.564303,'Ammis Biriyani','R
 insert into offer_details_db values ('8',12.902644,77.564303,'McDonalds','Take any burger and get Rs.50 off','Only on wednesdays','https://vignette.wikia.nocookie.net/logopedia/images/2/2f/Mcdonalds_logo.jpg','dilip-promo-e612KW49-2018');
 
 select * from offer_details_db;
+
+
+insert into offer_db ('xxxxx') returning adv_id;

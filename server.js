@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 
 app.set('json spaces', 4)
-/*
+//READ FROM DATABASE
 app.get( '/', function ( req, res) {
   var latitude = req.query.Lat;
   var longitude = req.query.Lng;
@@ -45,10 +45,45 @@ app.get( '/', function ( req, res) {
         client.end();
       });
     });
-
   }
+})
 
+/*
+//HARDCODE FROM FILES
+app.get( '/', function ( req, res) {
+  var latitude = req.query.Lat;
+  var longitude = req.query.Lng;
 
+  let rawdata = fs.readFileSync('dummyResult.json');
+  let jsondata = JSON.parse(rawdata);
+  if (latitude && longitude) {
+    jsondata["Latitude"] = latitude;
+    jsondata["Longitude"] = longitude;
+
+    request(
+      'https://maps.googleapis.com/maps/api/geocode/json?latlng=' +
+      latitude+
+      ','+
+      longitude+
+      '&sensor=false&key=AIzaSyBHejobPoAWEc3c-6tmsfidzJ-5_0T65A0',
+      {
+        json: true
+      }, (err, res1, body) => {
+        if (err) {
+          res.json(jsondata);
+          res.status(200);
+        } else {
+          if (body.results[0]) {
+            jsondata["Address"] = body.results[0].formatted_address;
+          }
+          res.json(jsondata);
+          res.status(200);
+        }
+      });
+  } else {
+    res.send("Please provide latitude and longitude");
+    res.status(400);
+  }
 })
 */
 app.get( '/getdetails', function ( req, res) {
@@ -99,53 +134,18 @@ app.get( '/offercode', function ( req, res) {
 
 })
 
-app.get( '/', function ( req, res) {
-  var latitude = req.query.Lat;
-  var longitude = req.query.Lng;
 
-  let rawdata = fs.readFileSync('dummyResult.json');
-  let jsondata = JSON.parse(rawdata);
-  if (latitude && longitude) {
-    jsondata["Latitude"] = latitude;
-    jsondata["Longitude"] = longitude;
-
-    request(
-      'https://maps.googleapis.com/maps/api/geocode/json?latlng=' +
-      latitude+
-      ','+
-      longitude+
-      '&sensor=false&key=AIzaSyBHejobPoAWEc3c-6tmsfidzJ-5_0T65A0',
-      {
-        json: true
-      }, (err, res1, body) => {
-        if (err) {
-          res.json(jsondata);
-          res.status(200);
-        } else {
-          if (body.results[0]) {
-            jsondata["Address"] = body.results[0].formatted_address;
-          }
-          res.json(jsondata);
-          res.status(200);
-        }
-      });
-  } else {
-    res.send("Please provide latitude and longitude");
-    res.status(400);
-  }
-})
 
 
 
 app.post( '/offers', upload.array(), function (req, res, next) {
-  var lat = parseFloat(req.body["Latitude"]);
-  var lng = parseFloat(req.body["Longitude"]);
-  var company = req.body["Company"];
-  var shortoffer = req.body["Short_Offer"];
-  var longoffer = req.body["Long_Offer"];
-  var validity = req.body["Validity"];
-  var addid = req.body["AddID"];
-  var poster = req.body["Poster"];
+  var lat = parseFloat(req.body["latitute"]);
+  var lng = parseFloat(req.body["longitude"]);
+  var company = req.body["company"];
+  var shortoffer = req.body["short_offer"];
+  var longoffer = req.body["long_offer"];
+  var validity = req.body["validity"];
+  var poster = req.body["poster"];
 
   var db_uri = cf_svc.get_elephantsql_uri();
   var client = new pg.Client(db_uri);
@@ -156,26 +156,73 @@ app.post( '/offers', upload.array(), function (req, res, next) {
       res.status(500);
     }
     var queryString =
-      'INSERT INTO advertise VALUES(' +
+      'INSERT INTO offer_db (latitute, longitude, company, shortoffer, poster) VALUES(' +
       lat + ', ' +
       lng + ', ' +
       '\'' + company + '\', ' +
       '\'' + shortoffer + '\', ' +
-      '\'' + longoffer + '\', ' +
-      '\'' + validity + '\', ' +
-      '\'' + addid + '\', ' +
-      '\'' + poster + '\')' ;
+      '\'' + poster + '\')' +
+      ' returning adv_id';
     client.query(queryString, function(err, result) {
       if(err) {
-        return console.error('error running query', err);
+        client.end();
+        return console.error('error while adding to offer_db', err);
       }
-
-      client.end();
+      console.log("***resut result.rows[0].adv_id",result.rows[0].adv_id);
+      //generate a new offer code
+      var redeem_code = cf_svc.get_offer_code();
+      console.log("***** redeem : " + redeem_code);
+      var sqString =
+        'INSERT INTO offer_details_db VALUES(' +
+        parseInt(result.rows[0].adv_id) + ', ' +
+        lat + ', ' +
+        lng + ', ' +
+        '\'' + company + '\', ' +
+        '\'' + longoffer + '\', ' +
+        '\'' + validity + '\', ' +
+        '\'' + poster + '\', ' +
+        '\'' + redeem_code + '\')';
+      client.query(sqString, function(err, result) {
+        if(err) {
+          client.end();
+          return console.error('error while adding to offer_db_details', err);
+        }
+        console.log("*** offer Added Successfully***");
+        client.end();
+      });
     });
-    res.send(res.body);
+    res.send("Record Added Successfully");
     res.status(200);
   });
 
+})
+
+app.get( '/offers', function ( req, res) {
+  var latitute = req.query.Lat;
+  var longitude = req.query.Lng;
+  var results = {};
+  if (latitute && longitude) {
+    var db_uri = cf_svc.get_elephantsql_uri();
+    var client = new pg.Client(db_uri);
+
+    client.connect(function(err) {
+      if(err) {
+        return console.error('could not connect to postgres', err);
+      }
+      var queryString =
+        'SELECT * FROM offer_db WHERE latitute=' + latitute +
+        'AND longitude=' + longitude;
+
+      client.query(queryString, function(err, result) {
+        if(err) {
+          return console.error('error running query', err);
+        }
+        results['results']=result.rows;
+        res.json(results);
+        client.end();
+      });
+    });
+  }
 })
 
 
