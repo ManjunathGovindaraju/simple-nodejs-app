@@ -1,3 +1,5 @@
+drop table offer_db;
+
 create table offer_db (
   adv_id SERIAL PRIMARY KEY,
   latitute decimal(9,6),
@@ -6,9 +8,6 @@ create table offer_db (
   shortoffer varchar(255),
   poster varchar(255)
 );
-
-drop table offer_db;
-
 
 insert into offer_db (latitute, longitude, company, shortoffer, poster) values (12.902644,77.564303,'Coffee day', 'Rs 50 Off','https://media.rakhimela.com/catalog/product/cache/3/image/1100x/040ec09b1e35df139433887a97daa66f/c/c/ccd_new-3d-logo_1.jpg');
 insert into offer_db (latitute, longitude, company, shortoffer, poster) values (12.902644,77.564303,'KFC', 'Rs 100 Off','https://vignette.wikia.nocookie.net/logopedia/images/0/09/KFC_col_logo.jpg');
@@ -19,6 +18,7 @@ insert into offer_db (latitute, longitude, company, shortoffer, poster) values (
 insert into offer_db (latitute, longitude, company, shortoffer, poster) values (12.902644,77.564303,'Ammis Biriyani', 'Rs 50 off','https://b.zmtcdn.com/data/user_profile_pictures/d8f/137f6a4850e792e9096bf6e4c2178d8f.jpg');
 insert into offer_db (latitute, longitude, company, shortoffer, poster) values (12.902644,77.564303,'McDonalds', 'Rs 50 off','https://vignette.wikia.nocookie.net/logopedia/images/2/2f/Mcdonalds_logo.jpg');
 
+drop table offer_details_db;
 
 create table offer_details_db (
   adv_id int,
@@ -31,7 +31,6 @@ create table offer_details_db (
   redeem_code varchar(255)
 );
 
-drop table offer_details_db;
 
 insert into offer_details_db values ('1',12.902644,77.564303,'Coffee day','Great offer from Coffee day. Get Rs.50 on minimum purchase of Rs.200','One week','https://media.rakhimela.com/catalog/product/cache/3/image/1100x/040ec09b1e35df139433887a97daa66f/c/c/ccd_new-3d-logo_1.jpg','dilip-promo-1gZYK7kq-2018');
 insert into offer_details_db values ('2',12.902644,77.564303,'KFC','Buy any chicken bucket to get Rs.100 off','Only on wednesdays','https://vignette.wikia.nocookie.net/logopedia/images/0/09/KFC_col_logo.jpg','dilip-promo-CmUPWVfR-2018');

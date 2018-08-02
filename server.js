@@ -119,7 +119,7 @@ app.get( '/getdetails', function ( req, res) {
         } else {
           var results = {};
           res.json(results);
-          
+
           res.send(404);
         }
       });
@@ -326,5 +326,63 @@ app.get( '/health', function ( req, res) {
   res.json("Service is up and running!!! ");
   res.status(200);
 })
+
+//  URI: /getofferwithinrange/?Lat=...&Lng=...&range=...
+app.get( '/getofferwithinrange', function ( req, res) {
+  var latitute = req.query.Lat;
+  var longitude = req.query.Lng;
+  var currentPlace = {lat: latitute, lon: longitude};
+
+  var range = req.query.range;
+  if(!range){
+    //if range is not provided then set it to 5kms
+    range = 5;
+  }
+  var results = {};
+  if (latitute && longitude) {
+    var db_uri = cf_svc.get_elephantsql_uri();
+    var client = new pg.Client(db_uri);
+
+    client.connect(function(err) {
+      if(err) {
+        return console.error('could not connect to postgres', err);
+      }
+      var queryString = 'SELECT * FROM offer_db';
+      client.query(queryString, function(err, result) {
+        if(err) {
+          client.end();
+          return console.error('error running query', err);
+        }
+        var dbResult = result.rows;
+        var finalResult = [];
+        for(var item of dbResult) {
+
+          var advLocation = {lat: item.latitute, lon: item.longitude};
+          var dist = cf_svc.get_geo_distance(currentPlace, advLocation);
+          if(dist<=range) {
+            var newItem = {};
+            newItem["distance"]=dist;
+            newItem["adv_id"]=item.adv_id;
+            newItem["latitute"]=item.latitute;
+            newItem["longitude"]=item.longitude;
+            newItem["company"]=item.company;
+            newItem["shortoffer"]=item.shortoffer;
+            newItem["poster"]=item.poster;
+            finalResult.push(newItem);
+          }
+
+        }
+        results['results']=finalResult;
+        res.json(results);
+        client.end();
+      });
+    });
+  }
+})
+
+
+
+
+
 
 app.listen( process.env.PORT || 4000)

@@ -1,6 +1,7 @@
 // app-bound services environment variables
 var voucher_codes = require('voucher-code-generator');
 var qr = require('qr-image');
+var geodist = require('geodist');
 
 module.exports = {
   get_elephantsql_uri: function () {
@@ -28,6 +29,13 @@ module.exports = {
     var qri = "Redeem Code: "+code;
     var qrcode = qr.image(qri, { type: 'jpeg' });
     return qrcode;
+  },
+
+  get_geo_distance: function (place1, place2) {
+
+    //var dist = geodist({lat: 41.85, lon: -87.65}, {lat: 33.7489, lon: -84.3881})
+    var dist = geodist(place1, place2, {exact: true, unit: 'km'});
+    return dist;
   }
 
 
