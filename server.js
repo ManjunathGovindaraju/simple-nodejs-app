@@ -101,16 +101,27 @@ app.get( '/getdetails', function ( req, res) {
 
       client.query(queryString, function(err, result) {
         if(err) {
+          client.end();
+          res.send("Failed to retrieve the result");
+          res.status(404);
           return console.error('error running query', err);
         }
+        if(result && result.rows) {
 
-        var response = result.rows[0];
-        var qri = "Redeem Code: "+response["redeem_code"];
-        var qrcode = qr.image(qri, { type: 'png' });
-        //response["qr-image"] = qrcode;
-        qrcode.pipe(res);
-        res.json(response);
-        client.end();
+          var response = result.rows[0];
+          var qri = "Redeem Code: "+response["redeem_code"];
+          var qrcode = qr.image(qri, { type: 'png' });
+          //response["qr-image"] = qrcode;
+          qrcode.pipe(res);
+          res.json(response);
+          res.status(200);
+          client.end();
+        } else {
+          var results = {};
+          res.json(results);
+          
+          res.send(404);
+        }
       });
     });
 
@@ -222,6 +233,44 @@ app.get( '/offers', function ( req, res) {
         client.end();
       });
     });
+  }
+})
+
+app.delete( '/offers', function ( req, res) {
+  var adv_id = req.query.id;
+  var results = {};
+  if (adv_id) {
+    var db_uri = cf_svc.get_elephantsql_uri();
+    var client = new pg.Client(db_uri);
+
+    client.connect(function(err) {
+      if(err) {
+        return console.error('could not connect to postgres', err);
+      }
+      //delete from offer parent database
+      var queryString = 'DELETE FROM offer_db WHERE adv_id=' + adv_id;
+      client.query(queryString, function(err, result) {
+        if(err) {
+          client.end();
+          return console.error('Unable to delete from offer_db', err);
+        }
+        //delete from offer details database
+        var qString = 'DELETE FROM offer_details_db WHERE adv_id=' + adv_id;
+        client.query(qString, function(err, result) {
+          if(err) {
+            client.end();
+            return console.error('Unable to delete from offer_details_db', err);
+          }
+          res.send("Successfully deleted the advertisement id :" + adv_id);
+          console.log("Delete advertisement Successfully")
+          res.status(202);
+          client.end();
+        });
+      });
+    });
+  } else {
+    res.send("Please provide adv_id");
+    res.status(404);
   }
 })
 

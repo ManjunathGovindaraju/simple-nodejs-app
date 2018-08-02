@@ -1,8 +1,8 @@
 ---
 applications:
 - name: dilip-web
-  memory: 512M
-  instances: 1
+  memory: 1G
+  instances: 2
   random-route: true
   buildpack: nodejs_buildpack
   routes:
