@@ -157,6 +157,10 @@ app.post( '/offers', upload.array(), function (req, res, next) {
   var longoffer = req.body["long_offer"];
   var validity = req.body["validity"];
   var poster = req.body["poster"];
+  var address = req.body["address"];
+  var category = req.body["category"];
+
+
 
   var db_uri = cf_svc.get_elephantsql_uri();
   var client = new pg.Client(db_uri);
@@ -167,12 +171,13 @@ app.post( '/offers', upload.array(), function (req, res, next) {
       res.status(500);
     }
     var queryString =
-      'INSERT INTO offer_db (latitute, longitude, company, shortoffer, poster) VALUES(' +
+      'INSERT INTO offer_db (latitute, longitude, company, shortoffer, poster, category) VALUES(' +
       lat + ', ' +
       lng + ', ' +
       '\'' + company + '\', ' +
       '\'' + shortoffer + '\', ' +
-      '\'' + poster + '\')' +
+      '\'' + poster + '\', ' +
+      '\'' + category + '\')' +
       ' returning adv_id';
     client.query(queryString, function(err, result) {
       if(err) {
@@ -192,7 +197,8 @@ app.post( '/offers', upload.array(), function (req, res, next) {
         '\'' + longoffer + '\', ' +
         '\'' + validity + '\', ' +
         '\'' + poster + '\', ' +
-        '\'' + redeem_code + '\')';
+        '\'' + redeem_code + '\', ' +
+        '\'' + address + '\')';
       client.query(sqString, function(err, result) {
         if(err) {
           client.end();
@@ -368,6 +374,8 @@ app.get( '/getofferwithinrange', function ( req, res) {
             newItem["company"]=item.company;
             newItem["shortoffer"]=item.shortoffer;
             newItem["poster"]=item.poster;
+            newItem["address"]=item.address;
+
             finalResult.push(newItem);
           }
 
