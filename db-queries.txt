@@ -65,3 +65,28 @@ update offer_db set category = 'Commercial' WHERE category IS NULL
 "poster": "http:///something.jpg",
 "category" : "Commercial"
 }
+
+
+#Delete duplicate entries
+
+DELETE
+FROM
+    offer_db a
+        USING offer_db b
+WHERE
+    a.adv_id < b.adv_id
+    AND a.latitute = b.latitute
+    AND a.longitude = b.longitude
+    AND a. company = b.company;
+
+
+
+DELETE
+FROM
+    offer_details_db a
+        USING offer_details_db b
+WHERE
+    a.adv_id < b.adv_id
+    AND a.latitute = b.latitute
+    AND a.longitude = b.longitude
+    AND a. company = b.company;
